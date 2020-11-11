@@ -123,8 +123,8 @@ int main() {
 	contr.Add(900);
 	contr.Insert(2,654);
 	contr.Display();
-	cout << contr.isFull();
-	cout << contr.isEmpty();
-	cout << contr.isValid(0) << endl;
+	cout << "isFull = " << contr.isFull() << endl;
+	cout << "isEmpty = " << contr.isEmpty() << endl;
+	cout << "isValid = " << contr.isValid(0) << endl;
 	system("pause");
 }
