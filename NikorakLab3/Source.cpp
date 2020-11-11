@@ -137,9 +137,9 @@ int main() {
 	contr.Insert(2,32);
 	contr.Add(700);
 	contr.Display();
-	cout << contr.isFull();
-	cout << contr.isEmpty();
-	cout << contr.isValid(0) << endl;
-	cout << contr.isSame() << endl;
+	cout <<"isFull = "<< contr.isFull() << endl;
+	cout <<"isEmpty = "<< contr.isEmpty()<<endl;
+	cout <<"isValid = "<< contr.isValid(0) << endl;
+	cout << "isSame = "<<contr.isSame() << endl;
 	system("pause");
 }
