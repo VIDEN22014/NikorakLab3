@@ -100,7 +100,7 @@ public: int Size = 0;
 		  {
 			  cout << temp[i].data << endl;
 		  }
-		  cout << "Size= " << Size << endl;
+		  cout << "Size= " << Size << endl<<endl;
 	  }
 	  bool isEmpty() {
 		  if (Size == 0) { return true; }
