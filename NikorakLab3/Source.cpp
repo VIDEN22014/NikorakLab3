@@ -9,36 +9,36 @@ public:int data;
 }record;
 	  List* next = nullptr;
 };
-	  List* head;
+	  List* head=nullptr;
 	  int maxSize = 0;
 public: int Size = 0;
 	  ListController(int size) {
 		  maxSize = size;
 		  head = nullptr;
 	  }
-	  int operator[](int index) {
+	  ListController::List::Data operator[](int index) {
 		  List* temp = head;
 		  for (int i = 0; i < index; i++)
 		  {
 			  temp = temp->next;
 		  }
-		  return temp->record.data;
+		  return temp->record;
 	  }
-	  void Add(int add) {
+	  void Add(int data) {
 		  if (Size < maxSize) {
 			  Size++;
-			  List* temp = head;
 			  if (head == nullptr) {
 				  head = new List();
-				  head->record.data = add;
+				  head->record.data = data;
 			  }
 			  else {
+				  List* temp = head;
 				  while (temp->next != nullptr)
 				  {
 					  temp = temp->next;
 				  }
 				  temp->next = new List();
-				  temp->next->record.data = add;
+				  temp->next->record.data = data;
 			  }
 		  }
 	  };
@@ -46,13 +46,13 @@ public: int Size = 0;
 		  Size = 0;
 		  head = nullptr;
 	  }
-	  void Insert(int pos, int insert) {
+	  void Insert(int pos, int data) {
 		  if (Size < maxSize) {
 			  List* previous = head;
 			  List* current = head;
 			  if (pos == 0) {
 				  head = new List();
-				  head->record.data = insert;
+				  head->record.data = data;
 				  head->next = current;
 			  }
 			  else {
@@ -65,7 +65,7 @@ public: int Size = 0;
 					  previous = previous->next;
 				  }
 				  previous->next = new List();
-				  previous->next->record.data = insert;
+				  previous->next->record.data = data;
 				  previous->next->next = current;
 			  }
 			  Size++;
@@ -98,7 +98,7 @@ public: int Size = 0;
 		  ListController temp = *this;
 		  for (int i = 0; i < Size; i++)
 		  {
-			  cout << temp[i] << endl;
+			  cout << temp[i].data << endl;
 		  }
 		  cout << "Size= " << Size << endl;
 	  }
@@ -111,7 +111,7 @@ public: int Size = 0;
 		  else return false;
 	  }
 	  bool isValid(int pos) {
-		  if (pos <= Size - 1&&pos>=0) { return true; }
+		  if (pos <= Size - 1 && pos >= 0) { return true; }
 		  else return false;
 	  }
 };
@@ -119,13 +119,12 @@ public: int Size = 0;
 
 int main() {
 	ListController contr(3);
-	contr.Insert(0, 67);
-	contr.Add(9);
-	contr.Add(4);
-	contr.Add(5);
+	contr.Add(700);
+	contr.Add(900);
+	contr.Insert(2,654);
 	contr.Display();
-	cout<<contr.isFull();
-	cout<<contr.isEmpty();
-	cout<<contr.isValid(0);
+	cout << contr.isFull();
+	cout << contr.isEmpty();
+	cout << contr.isValid(0) << endl;
 	system("pause");
 }
