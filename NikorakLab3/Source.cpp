@@ -5,40 +5,46 @@ using namespace std;
 class ListController {
 public:class List {
 public: struct Data {
-public:int data;
+public:string markName;
+	  bool isGood;
+	  double price;
 }record;
 	  List* next = nullptr;
 };
-	  List* head;
+	  List* head = nullptr;
 	  int maxSize = 0;
 public: int Size = 0;
 	  ListController(int size) {
 		  maxSize = size;
 		  head = nullptr;
 	  }
-	  int operator[](int index) {
+	  ListController::List::Data operator[](int index) {
 		  List* temp = head;
 		  for (int i = 0; i < index; i++)
 		  {
 			  temp = temp->next;
 		  }
-		  return temp->record.data;
+		  return temp->record;
 	  }
-	  void Add(int add) {
+	  void Add(string markName, bool isGood, double price) {
 		  if (Size < maxSize) {
 			  Size++;
-			  List* temp = head;
 			  if (head == nullptr) {
 				  head = new List();
-				  head->record.data = add;
+				  head->record.markName = markName;
+				  head->record.isGood = isGood;
+				  head->record.price = price;
 			  }
 			  else {
+				  List* temp = head;
 				  while (temp->next != nullptr)
 				  {
 					  temp = temp->next;
 				  }
 				  temp->next = new List();
-				  temp->next->record.data = add;
+				  temp->next->record.markName = markName;
+				  temp->next->record.isGood = isGood;
+				  temp->next->record.price = price;
 			  }
 		  }
 	  };
@@ -46,13 +52,15 @@ public: int Size = 0;
 		  Size = 0;
 		  head = nullptr;
 	  }
-	  void Insert(int pos, int insert) {
+	  void Insert(int pos, string markName, bool isGood, double price) {
 		  if (Size < maxSize) {
 			  List* previous = head;
 			  List* current = head;
 			  if (pos == 0) {
 				  head = new List();
-				  head->record.data = insert;
+				  head->record.markName = markName;
+				  head->record.isGood = isGood;
+				  head->record.price = price;
 				  head->next = current;
 			  }
 			  else {
@@ -65,7 +73,9 @@ public: int Size = 0;
 					  previous = previous->next;
 				  }
 				  previous->next = new List();
-				  previous->next->record.data = insert;
+				  previous->next->record.markName = markName;
+				  previous->next->record.isGood = isGood;
+				  previous->next->record.price = price;
 				  previous->next->next = current;
 			  }
 			  Size++;
@@ -98,7 +108,7 @@ public: int Size = 0;
 		  ListController temp = *this;
 		  for (int i = 0; i < Size; i++)
 		  {
-			  cout << temp[i] << endl;
+			  cout << temp[i].markName << " " << temp[i].isGood << " " << temp[i].price << endl;
 		  }
 		  cout << "Size= " << Size << endl;
 	  }
@@ -111,21 +121,25 @@ public: int Size = 0;
 		  else return false;
 	  }
 	  bool isValid(int pos) {
-		  if (pos <= Size - 1&&pos>=0) { return true; }
+		  if (pos <= Size - 1 && pos >= 0) { return true; }
 		  else return false;
+	  }
+	  void DeleteByPrice(double price) {
+		  ListController temp = *this;
+		  for (int i = 0; i < temp.Size; i++)
+		  {
+			  if (temp[i].price<price) {
+				  Delete(i);
+				  DeleteByPrice(price);
+				  break;
+			  }
+		  }
 	  }
 };
 
-
 int main() {
-	ListController contr(3);
-	contr.Insert(0, 67);
-	contr.Add(9);
-	contr.Add(4);
-	contr.Add(5);
+	ListController contr(6);
+	contr.DeleteByPrice(800);
 	contr.Display();
-	cout<<contr.isFull();
-	cout<<contr.isEmpty();
-	cout<<contr.isValid(0);
 	system("pause");
 }
