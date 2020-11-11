@@ -110,7 +110,7 @@ public: int Size = 0;
 		  {
 			  cout << temp[i].markName << " " << temp[i].isGood << " " << temp[i].price << endl;
 		  }
-		  cout << "Size= " << Size << endl;
+		  cout << "Size= " << Size << endl << endl;
 	  }
 	  bool isEmpty() {
 		  if (Size == 0) { return true; }
@@ -139,6 +139,11 @@ public: int Size = 0;
 
 int main() {
 	ListController contr(6);
+	contr.Add("Xiaomi", 0, 799);
+	contr.Add("Apple", 1, 999);
+	contr.Add("Samsung", 1, 780);
+	contr.Insert(0,"Nokia", 1, 900);
+	contr.Display();
 	contr.DeleteByPrice(800);
 	contr.Display();
 	system("pause");
