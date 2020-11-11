@@ -114,17 +114,32 @@ public: int Size = 0;
 		  if (pos <= Size - 1 && pos >= 0) { return true; }
 		  else return false;
 	  }
+	  bool isSame() {
+		  ListController temp = *this;
+		  for (int i = 0; i < temp.Size-1; i++)
+		  {
+			  for (int j = i+1; j < temp.Size; j++)
+			  {
+				  if (temp[i].data == temp[j].data) { return true; }
+			  }
+		  }
+		  return false;
+	  }
 };
 
 
 int main() {
-	ListController contr(3);
+	ListController contr(6);
 	contr.Add(700);
-	contr.Add(900);
+	contr.Add(123);
 	contr.Insert(2,654);
+	contr.Insert(2,213);
+	contr.Insert(2,32);
+	contr.Add(700);
 	contr.Display();
 	cout << contr.isFull();
 	cout << contr.isEmpty();
 	cout << contr.isValid(0) << endl;
+	cout << contr.isSame() << endl;
 	system("pause");
 }
