@@ -6,7 +6,7 @@ class ListController {
 public:class List {
 public: struct Data {
 public:string markName;
-	  bool isGood;
+	  double frequency;
 	  double price;
 }record;
 	  List* next = nullptr;
@@ -26,13 +26,13 @@ public: int Size = 0;
 		  }
 		  return temp->record;
 	  }
-	  void Add(string markName, bool isGood, double price) {
+	  void Add(string markName, double frequency, double price) {
 		  if (Size < maxSize) {
 			  Size++;
 			  if (head == nullptr) {
 				  head = new List();
 				  head->record.markName = markName;
-				  head->record.isGood = isGood;
+				  head->record.frequency = frequency;
 				  head->record.price = price;
 			  }
 			  else {
@@ -43,7 +43,7 @@ public: int Size = 0;
 				  }
 				  temp->next = new List();
 				  temp->next->record.markName = markName;
-				  temp->next->record.isGood = isGood;
+				  temp->next->record.frequency = frequency;
 				  temp->next->record.price = price;
 			  }
 		  }
@@ -52,14 +52,14 @@ public: int Size = 0;
 		  Size = 0;
 		  head = nullptr;
 	  }
-	  void Insert(int pos, string markName, bool isGood, double price) {
+	  void Insert(int pos, string markName, double frequency, double price) {
 		  if (Size < maxSize) {
 			  List* previous = head;
 			  List* current = head;
 			  if (pos == 0) {
 				  head = new List();
 				  head->record.markName = markName;
-				  head->record.isGood = isGood;
+				  head->record.frequency = frequency;
 				  head->record.price = price;
 				  head->next = current;
 			  }
@@ -74,7 +74,7 @@ public: int Size = 0;
 				  }
 				  previous->next = new List();
 				  previous->next->record.markName = markName;
-				  previous->next->record.isGood = isGood;
+				  previous->next->record.frequency = frequency;
 				  previous->next->record.price = price;
 				  previous->next->next = current;
 			  }
@@ -108,9 +108,17 @@ public: int Size = 0;
 		  ListController temp = *this;
 		  for (int i = 0; i < Size; i++)
 		  {
-			  cout << temp[i].markName << " " << temp[i].isGood << " " << temp[i].price << endl;
+			  cout << temp[i].markName << " " << temp[i].frequency << " " << temp[i].price << endl;
 		  }
-		  cout << "Size= " << Size << endl;
+		  cout << "Size= " << Size << endl<<endl;
+	  }
+	  void DisplayInGrn() {
+		  ListController temp = *this;
+		  for (int i = 0; i < Size; i++)
+		  {
+			  cout << temp[i].markName << " " << temp[i].frequency << " " << temp[i].price*28 << endl;
+		  }
+		  cout << "Size= " << Size << endl << endl;
 	  }
 	  bool isEmpty() {
 		  if (Size == 0) { return true; }
@@ -124,13 +132,13 @@ public: int Size = 0;
 		  if (pos <= Size - 1 && pos >= 0) { return true; }
 		  else return false;
 	  }
-	  void DeleteByPrice(double price) {
+	  void DeleteByParams(double frequency,double price) {
 		  ListController temp = *this;
 		  for (int i = 0; i < temp.Size; i++)
 		  {
-			  if (temp[i].price<price) {
+			  if (temp[i].price<price||temp[i].frequency< frequency) {
 				  Delete(i);
-				  DeleteByPrice(price);
+				  DeleteByParams(frequency,price);
 				  break;
 			  }
 		  }
@@ -139,7 +147,14 @@ public: int Size = 0;
 
 int main() {
 	ListController contr(6);
-	contr.DeleteByPrice(800);
+	contr.Add("Apple", 1200, 9999);
+	contr.Add("Asus", 100, 800);
+	contr.Add("HP", 200, 1000);
+	contr.Add("Lenovo", 199, 999);
+	contr.Insert(1, "Xiaomi", 150, 1100);
 	contr.Display();
+	contr.DeleteByParams(200,1000);
+	contr.Display();
+	contr.DisplayInGrn();
 	system("pause");
 }
