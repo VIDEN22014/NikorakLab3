@@ -105,6 +105,7 @@ public: int Size = 0;
 		  }
 	  }
 	  void Display() {
+		  cout << "Price in Usd" << endl;
 		  ListController temp = *this;
 		  for (int i = 0; i < Size; i++)
 		  {
@@ -113,6 +114,7 @@ public: int Size = 0;
 		  cout << "Size= " << Size << endl<<endl;
 	  }
 	  void DisplayInGrn() {
+		  cout << "Price in Grn" << endl;
 		  ListController temp = *this;
 		  for (int i = 0; i < Size; i++)
 		  {
